@@ -35,9 +35,9 @@ public class UserMealsUtil {
             final LocalDate date = userMeal.getDateTime().toLocalDate();
             final int cals = userMeal.getCalories();
             if (!calsPerDay.containsKey(date)) {
-                calsPerDay.put(date, Integer.valueOf(cals));
+                calsPerDay.put(date, cals);
             } else {
-                calsPerDay.put(date, calsPerDay.get(date).intValue() + cals);
+                calsPerDay.put(date, calsPerDay.get(date) + cals);
             }
         }
         // перебираем и возвращаем
@@ -47,7 +47,7 @@ public class UserMealsUtil {
             if (!TimeUtil.isBetween(dateTime.toLocalTime(), startTime, endTime)) {
                 continue;
             }
-            boolean exceed = calsPerDay.get(dateTime.toLocalDate()).intValue() > caloriesPerDay;
+            boolean exceed = calsPerDay.get(dateTime.toLocalDate()) > caloriesPerDay;
             res.add(new UserMealWithExceed(dateTime, userMeal.getDescription(), userMeal.getCalories(), exceed));
         }
         return res;
